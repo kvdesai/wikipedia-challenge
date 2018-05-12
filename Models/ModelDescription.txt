@@ -1,0 +1,22 @@
+1. RF model
+Input -- Features113_
+Output -- "RF_29Aug11_2nd.csv"
+
+This model trains a separate Random Forest Model for people who have joined before "2009-09-01 0:0:0" (i.e. OLD guys), 
+versus those who have joined after that time (NEW guys). This partition is motivated by the potential sampling effect
+that may exist in the data because only those editors who have made at least one edit between 2009-09-01 to 2010-09-01 was
+a part of the dataset.
+The RF model for new guys uses 14 variables, whereas the RF model used for
+old guys uses 19 variables.
+
+2. not_so_simple_9a 
+Input -- Features113
+Output -- "withoptim_not_so_Simple9a_nested_segs_LB.csv"
+
+This model applies two levels of segmentations on users. First those who have been in the system for at least 1 year, vs those who are newer than 1 year. Then it segments based on the number of unique edit days that the user was active in last 5 months. 
+For each of these segments a linear model is fit on chosen features (different for each segment), by running an nonlinear optimiser that attempts minimizing the rmsle loss. Also, 25 models for each segment are fitted, and their predictions are aggregated by taking median.
+
+3. Seven Segs V10 
+Input -- Featureskd_wrevs 
+Output --  Seven_Segs_v10_corrected_bagging.csv
+This is very similar to not_so_simple9a, except the predictions are aggregated by taking geometric mean. Also some differences in choice of features.
